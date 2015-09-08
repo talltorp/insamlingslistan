@@ -55,6 +55,7 @@ describe InsamlingsController do
 
       mail = ActionMailer::Base.deliveries.last
       expect(mail.from.first).to eql("info@insamlingslistan.se")
+      expect(mail.to.first).to eql("good@person.com")
     end
   end
 end
