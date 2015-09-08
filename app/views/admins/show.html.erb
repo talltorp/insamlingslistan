@@ -1,0 +1,26 @@
+<%= @insamling.about %>
+<%= @insamling.description %>
+<%= simple_form_for [@insamling, @insamling.needs.build] do |f| %>
+  <%= f.input :title %>
+  <%= f.input :description, type: :text %>
+  <%= f.submit "Lägg till behov" %>
+<% end %>
+
+<ul>
+  <% @insamling.needs.each do |need| -%>
+    <% if not need.new_record? %>
+      <li>
+        <div>
+          <%= need.title %>
+        </div>
+        <div>
+          <%= need.description %>
+        </div>
+
+          <%= link_to "Ta bort behov",
+            insamling_need_path(@insamling, need),
+            :confirm => "Är du säker?",
+            :method => :delete %>
+      </li>
+    <% end %>
+<% end -%>

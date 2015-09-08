@@ -1,0 +1,13 @@
+<%= @insamling.about %>
+<%= @insamling.description %>
+<ul>
+  <% @insamling.needs.each do |need| -%>
+    <li>
+      <div>
+        <%= need.title %>
+      </div>
+      <div>
+        <%= need.description %>
+      </div>
+    </li>
+<% end -%>

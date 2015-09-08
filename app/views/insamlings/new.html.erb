@@ -1,0 +1,8 @@
+<div class="container">
+  <%= simple_form_for @insamling, url: {action: "create"} do |f| %>
+    <%= f.input :about, label: "Vad samlar du in för?" %>
+    <%= f.input :description, as: :text, label: "Beskriv allmänt vad som hänt" %>
+    <%= f.input :user_email, label: "Din email-adress" %>
+    <%= f.submit "Skapa lista" %>
+  <% end %>
+</div>
