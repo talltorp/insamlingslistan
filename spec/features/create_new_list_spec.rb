@@ -10,7 +10,10 @@ describe "Creating a new list" do
     fill_in "insamling_user_email", with: "good@person.com"
     click_button "Skapa lista"
 
+    expect(page).to have_content(/skapades/)
     @insamling = Insamling.last
+
+    user_clicks_admin_link_in_email
 
     ensure_we_are_in_admin_area
 
@@ -24,6 +27,10 @@ describe "Creating a new list" do
     remove_need 1
     ensure_we_are_in_admin_area
     expect_number_of_needs_to_be 1
+  end
+
+  def user_clicks_admin_link_in_email
+    visit "/insamlings/#{ @insamling.id }/admins/#{ @insamling.admin_token }"
   end
 
   def add_need(title, description)

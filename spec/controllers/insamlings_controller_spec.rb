@@ -42,6 +42,37 @@ describe InsamlingsController do
       expect(insamling.admin_token).to be_a String
     end
 
+    it "redirects to the :show action" do
+      params = {
+        insamling: {
+          about: "about insamling",
+          description: "description insamling",
+          user_email: "good@person.com",
+        }
+      }
+
+      post :create, params
+      insamling = Insamling.last
+
+      expect(response).to redirect_to("/insamlings/#{ insamling.id }")
+    end
+
+    it "informs the user of successful creation" do
+      params = {
+        insamling: {
+          about: "about insamling",
+          description: "description insamling",
+          user_email: "good@person.com",
+        }
+      }
+
+      post :create, params
+      insamling = Insamling.last
+
+      expect(flash[:notice]).to match(/skapad/)
+
+    end
+
     it "sends an email to the creator" do
       params = {
         insamling: {

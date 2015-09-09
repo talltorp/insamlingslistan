@@ -12,7 +12,8 @@ class InsamlingsController < ApplicationController
 
     if insamling.save
       InsamlingMailer.send_confirmation_email(insamling).deliver_now
-      redirect_to insamling_admin_url(insamling.id, insamling.admin_token)
+      flash[:notice] = "Insamlingen skapades. Kolla din mail för inloggningsuppgifter"
+      redirect_to insamling_url(insamling)
     end
   end
 
