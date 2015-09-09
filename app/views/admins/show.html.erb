@@ -3,6 +3,7 @@
 <%= simple_form_for [@insamling, @insamling.needs.build] do |f| %>
   <%= f.input :title %>
   <%= f.input :description, type: :text %>
+  <%= hidden_field_tag :admin_token, @insamling.admin_token %>
   <%= f.submit "Lägg till behov" %>
 <% end %>
 
@@ -18,7 +19,11 @@
         </div>
 
           <%= link_to "Ta bort behov",
-            insamling_need_path(@insamling, need),
+            insamling_need_path(
+              @insamling, 
+              need, 
+              admin_token: @insamling.admin_token
+            ),
             :confirm => "Är du säker?",
             :method => :delete %>
       </li>
