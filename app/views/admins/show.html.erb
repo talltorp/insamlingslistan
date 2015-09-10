@@ -14,7 +14,7 @@
           <%= f.input :description, as: :text, label: "Ge mer detaljer på det du behöver" %>
           <%= hidden_field_tag :admin_token, @insamling.admin_token %>
           <%= f.submit "Lägg till detta behov" %>
-          <%= link_to "Jag är klar", insamling_url(@insamling), class: "button" %>
+          <%= link_to "Jag är klar", insamling_url(@insamling) %>
         <% end %>
       </p>
       <% @insamling.needs.each do |need| -%>
