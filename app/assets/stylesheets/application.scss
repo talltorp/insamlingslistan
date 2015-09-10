@@ -22,6 +22,11 @@ article {
   @include span-columns(7);
   @include shift(2);
 
+  @include media($small-screen-up) {
+    @include span-columns(4);
+    @include shift(0);
+  }
+
   h2, h3, h4, p, nav {
     clear: both;
   }
@@ -33,6 +38,11 @@ article {
   .needs {
     @include span-columns(5 of 7);
     @include shift(1);
+
+    @include media($small-screen-up) {
+      @include span-columns(4);
+      @include shift(0);
+    }
   }
 
   .share {
