@@ -1,31 +1,40 @@
-<%= @insamling.about %>
-<%= @insamling.description %>
-<%= simple_form_for [@insamling, @insamling.needs.build] do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description, type: :text %>
-  <%= hidden_field_tag :admin_token, @insamling.admin_token %>
-  <%= f.submit "Lägg till behov" %>
-<% end %>
-
-<ul>
-  <% @insamling.needs.each do |need| -%>
-    <% if not need.new_record? %>
-      <li>
-        <div>
-          <%= need.title %>
-        </div>
-        <div>
-          <%= need.description %>
-        </div>
-
-          <%= link_to "Ta bort behov",
-            insamling_need_path(
-              @insamling, 
-              need, 
-              admin_token: @insamling.admin_token
-            ),
-            :confirm => "Är du säker?",
-            :method => :delete %>
-      </li>
-    <% end %>
-<% end -%>
+<div class="container">
+  <article class="type-system-rounded">
+    <h1>
+      <%= @insamling.about %>
+    </h1>
+    <h2>
+      <%= @insamling.description %>
+    </h2>
+    <div class="needs">
+      <h3>Lägg till ett nytt behov</h3>
+      <p>
+        <%= simple_form_for [@insamling, @insamling.needs.build] do |f| %>
+          <%= f.input :title, label: "Beskriv kort vad du behöver" %>
+          <%= f.input :description, as: :text, label: "Ge mer detaljer på det du behöver" %>
+          <%= hidden_field_tag :admin_token, @insamling.admin_token %>
+          <%= f.submit "Lägg till detta behov" %>
+          <%= link_to "Jag är klar", insamling_url(@insamling), class: "button" %>
+        <% end %>
+      </p>
+      <% @insamling.needs.each do |need| -%>
+        <% if not need.new_record? %>
+          <h4>
+            <%= need.title %>
+          </h4>
+          <p>
+            <%= need.description %>
+            <%= link_to "Ta bort behov",
+              insamling_need_path(
+                @insamling, 
+                need, 
+                admin_token: @insamling.admin_token
+              ),
+              :confirm => "Är du säker?",
+              :method => :delete %>
+          </p>
+        <% end -%>
+      <% end -%>
+    </div>
+  </article>
+</div>

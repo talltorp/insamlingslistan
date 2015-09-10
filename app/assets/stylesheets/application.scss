@@ -7,3 +7,40 @@
 @import "base/base";
 @import "refills/flashes";
 @import "refills/hero";
+@import "refills/type-system-rounded";
+
+.container {
+  @include outer-container;
+}
+
+.header-section {
+  background-color: $medium-gray;
+}
+
+article {
+  @include pad();
+  @include span-columns(7);
+  @include shift(2);
+
+  h2, h3, h4, p, nav {
+    clear: both;
+  }
+
+  h1, h2, nav {
+    text-align: center;
+  }
+
+  .needs {
+    @include span-columns(5 of 7);
+    @include shift(1);
+  }
+
+  .share {
+    @include pad();
+    margin: auto;
+  }
+
+  .share iframe, div {
+    v-align: top;
+  }
+}
