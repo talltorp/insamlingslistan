@@ -30,7 +30,7 @@
                 need, 
                 admin_token: @insamling.admin_token
               ),
-              :confirm => "Är du säker?",
+              data: { confirm: "Är du säker att du vill ta bort '#{ need.title }'?" },
               :method => :delete %>
           </p>
         <% end -%>
