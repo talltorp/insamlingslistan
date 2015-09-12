@@ -18,6 +18,26 @@
   background-color: $medium-gray;
 }
 
+.share-area {
+  @include flash($success-color);
+  border-radius: 3px;
+
+  h3, p {
+    margin: 0px !important;
+  }
+
+  h3 {
+    font-family: $sans-serif;
+    font-size: 0.9em;
+    font-weight: 800;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 0.3em 0;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
 article {
   @include pad();
   @include span-columns(7);
@@ -44,14 +64,5 @@ article {
       @include span-columns(4);
       @include shift(0);
     }
-  }
-
-  .share {
-    @include pad();
-    margin: auto;
-  }
-
-  .share iframe, div {
-    v-align: top;
   }
 }

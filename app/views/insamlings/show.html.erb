@@ -6,7 +6,14 @@
     <h2>
       <%= @insamling.description %>
     </h2>
-    <%= render_shareable buttons: ["twitter", "facebook"] %>
+    <div class="share-area">
+      <h3>
+        Kopiera länken och dela den på Facebook eller Twitter.
+      </h3>
+      <p>
+        <%= "#{ root_url }insamlings/#{ @insamling.id }" %>
+      </p>
+    </div>
     <div class="needs">
       <% if @insamling.needs.length > 0 %>
         <h3>Vi behöver</h3>
