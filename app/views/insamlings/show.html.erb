@@ -8,14 +8,18 @@
     </h2>
     <%= render_shareable buttons: ["twitter", "facebook"] %>
     <div class="needs">
-      <h3>Vi behöver</h3>
-      <% @insamling.needs.each do |need| -%>
-        <h4>
-          <%= need.title %>
-        </h4>
-        <p>
-          <%= need.description %>
-        </p>
+      <% if @insamling.needs.length > 0 %>
+        <h3>Vi behöver</h3>
+        <% @insamling.needs.each do |need| -%>
+          <h4>
+            <%= need.title %>
+          </h4>
+          <p>
+            <%= need.description %>
+          </p>
+        <% end -%>
+      <% else %>
+        <h4>Just nu behöver vi inget</h4>
       <% end -%>
     </div>
   </article>
