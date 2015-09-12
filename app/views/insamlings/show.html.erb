@@ -7,16 +7,16 @@
       <%= @insamling.description %>
     </h2>
     <div class="share-area">
-      <h3>
+      <div class="share-header">
         Kopiera länken och dela den på Facebook eller Twitter.
-      </h3>
+      </div>
       <p>
         <%= "#{ root_url }insamlings/#{ @insamling.id }" %>
       </p>
     </div>
     <div class="needs">
       <% if @insamling.needs.length > 0 %>
-        <h3>Vi behöver</h3>
+        <h3>Just nu behöver vi</h3>
         <% @insamling.needs.each do |need| -%>
           <h4>
             <%= need.title %>
@@ -26,7 +26,7 @@
           </p>
         <% end -%>
       <% else %>
-        <h4>Just nu behöver vi inget</h4>
+        <h3>Just nu behöver vi inget</h3>
       <% end -%>
     </div>
   </article>

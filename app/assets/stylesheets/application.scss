@@ -22,11 +22,11 @@
   @include flash($success-color);
   border-radius: 3px;
 
-  h3, p {
+  p {
     margin: 0px !important;
   }
 
-  h3 {
+  .share-header {
     font-family: $sans-serif;
     font-size: 0.9em;
     font-weight: 800;
