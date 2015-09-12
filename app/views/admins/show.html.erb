@@ -7,13 +7,13 @@
       <%= @insamling.description %>
     </h2>
     <div class="needs">
-      <h3>Lägg till ett nytt behov</h3>
+      <h3>Lägg till mer i listan</h3>
       <p>
         <%= simple_form_for [@insamling, @insamling.needs.build] do |f| %>
-          <%= f.input :title, label: "Beskriv kort vad du behöver" %>
-          <%= f.input :description, as: :text, label: "Ge mer detaljer på det du behöver" %>
+          <%= f.input :title, label: "Vad behövs?" %>
+          <%= f.input :description, as: :text, label: "Övrig information (frivilligt fält)" %>
           <%= hidden_field_tag :admin_token, @insamling.admin_token %>
-          <%= f.submit "Lägg till detta behov" %>
+          <%= f.submit "Lägg till i listan" %>
           <%= link_to "Jag är klar", insamling_url(@insamling) %>
         <% end %>
       </p>
