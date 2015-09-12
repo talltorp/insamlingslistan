@@ -1,0 +1,14 @@
+<div class="container">
+  <article class="type-system-rounded">
+    <h1>
+      Lägg till mer i listan
+    </h1>
+    <%= simple_form_for [@insamling, @insamling.needs.build] do |f| %>
+      <%= f.input :title, label: "Vad behövs?" %>
+      <%= f.input :description, as: :text, label: "Övrig information (frivilligt fält)" %>
+      <%= hidden_field_tag :admin_token, @insamling.admin_token %>
+      <%= f.submit "Lägg till i listan" %>
+      <%= link_to "Jag är klar", insamling_url(@insamling) %>
+    <% end %>
+  </article>
+</div>

@@ -7,8 +7,8 @@
 @import "base/base";
 @import "font-awesome";
 @import "refills/flashes";
-@import "refills/hero";
 @import "refills/type-system-rounded";
+@import "refills/hero";
 
 .container {
   @include outer-container;
@@ -34,6 +34,14 @@
     text-align: center;
     text-transform: uppercase;
   }
+}
+
+.add-need-container {
+  text-align: center;
+}
+
+a.add-need-button {
+  color: #FFF !important;
 }
 
 article {

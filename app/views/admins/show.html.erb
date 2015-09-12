@@ -7,33 +7,30 @@
       <%= @insamling.description %>
     </h2>
     <div class="needs">
-      <h3>Lägg till mer i listan</h3>
-      <p>
-        <%= simple_form_for [@insamling, @insamling.needs.build] do |f| %>
-          <%= f.input :title, label: "Vad behövs?" %>
-          <%= f.input :description, as: :text, label: "Övrig information (frivilligt fält)" %>
-          <%= hidden_field_tag :admin_token, @insamling.admin_token %>
-          <%= f.submit "Lägg till i listan" %>
-          <%= link_to "Jag är klar", insamling_url(@insamling) %>
-        <% end %>
+      <p class="add-need-container">
+        <%= link_to "Lägg till mer i listan", 
+          new_insamling_need_url(
+            @insamling,
+            admin_token: @insamling.admin_token
+          ),
+          class: "button add-need-button"
+        %>
       </p>
       <% @insamling.needs.each do |need| -%>
-        <% if not need.new_record? %>
-          <h4>
-            <%= need.title %>
-          </h4>
-          <p>
-            <%= need.description %>
-            <%= link_to "Ta bort behov",
-              insamling_need_path(
-                @insamling, 
-                need, 
-                admin_token: @insamling.admin_token
-              ),
-              data: { confirm: "Är du säker att du vill ta bort '#{ need.title }'?" },
-              :method => :delete %>
-          </p>
-        <% end -%>
+        <h4>
+          <%= need.title %>
+        </h4>
+        <p>
+          <%= need.description %>
+          <%= link_to "Ta bort behov",
+            insamling_need_path(
+              @insamling, 
+              need, 
+              admin_token: @insamling.admin_token
+            ),
+            data: { confirm: "Är du säker att du vill ta bort '#{ need.title }'?" },
+            :method => :delete %>
+        </p>
       <% end -%>
     </div>
   </article>
