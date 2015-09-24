@@ -15,6 +15,16 @@
       </p>
     </div>
     <div class="needs">
+      <% if @current_user %>
+        <p class="add-need-container">
+          <%= link_to "Lägg till mer i listan", 
+            new_insamling_need_url(
+              @insamling
+            ),
+            class: "button add-need-button"
+          %>
+        </p>
+      <% end -%>
       <% if @insamling.needs.length > 0 %>
         <h3>Just nu behöver vi</h3>
         <% @insamling.needs.each do |need| -%>
@@ -23,6 +33,13 @@
           </h4>
           <p>
             <%= need.description %>
+            <%= link_to "Ta bort behov",
+              insamling_need_path(
+                @insamling,
+                need
+              ),
+              data: { confirm: "Är du säker att du vill ta bort '#{ need.title }'?" },
+              :method => :delete %>
           </p>
         <% end -%>
       <% else %>

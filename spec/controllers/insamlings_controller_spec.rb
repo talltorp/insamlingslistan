@@ -24,6 +24,24 @@ describe InsamlingsController do
 
       expect(assigns(:insamling)).to be_a Insamling
     end
+
+    context "when a user is logged in" do
+      it "assigns the logged in user to 'current_user'" do
+        insamling = create(:insamling)
+        log_in_with(insamling.user_email)
+        params = {
+          id: insamling.id
+        }
+
+        get :show, params
+
+        expect(assigns(:current_user)).not_to be_nil
+      end
+
+      def log_in_with(email)
+        session[:current_user] = email
+      end
+    end
   end
 
   describe "#create" do

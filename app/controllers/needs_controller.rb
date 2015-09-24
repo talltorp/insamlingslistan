@@ -1,10 +1,10 @@
 class NeedsController < ApplicationController
-  before_filter :validate_admin_token
+  before_filter :validate_user_logged_in
 
   def create
     @insamling = insamling
     @need = insamling.needs.create(need_params)
-    redirect_to insamling_admin_url(insamling.id, insamling.admin_token)
+    redirect_to insamling_url(insamling)
   end
 
   def destroy
@@ -12,13 +12,13 @@ class NeedsController < ApplicationController
     @need = Need.find(params[:id])
     @need.destroy
 
-    redirect_to insamling_admin_url(insamling.id, insamling.admin_token)
+    redirect_to insamling_url(insamling)
   end
 
   private
 
-  def validate_admin_token
-    unless insamling.admin_token == admin_token_in_params
+  def validate_user_logged_in
+    unless session[:current_user] == insamling.user_email
       redirect_to insamling_url(insamling)
     end
   end

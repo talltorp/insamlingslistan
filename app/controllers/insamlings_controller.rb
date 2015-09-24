@@ -1,4 +1,6 @@
 class InsamlingsController < ApplicationController
+  before_filter :set_current_user, on: [:show]
+
   def new
     @insamling = Insamling.new
   end
@@ -18,6 +20,12 @@ class InsamlingsController < ApplicationController
   end
 
   private
+
+  def set_current_user
+    if session[:current_user]
+      @current_user = session[:current_user]
+    end
+  end
 
   def insamlings_params
     params.require(:insamling).permit(:about, :description, :user_email)

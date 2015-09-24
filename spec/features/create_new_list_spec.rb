@@ -1,7 +1,7 @@
 require "rails_helper"
 
-describe "Creating a new list" do
-  it "from the home page" do
+feature "Creating a new list" do
+  scenario "and simulate the entire application flow" do
     visit "/"
     click_link "Skapa en lista"
 
@@ -15,17 +15,13 @@ describe "Creating a new list" do
 
     user_clicks_admin_link_in_email
 
-    ensure_we_are_in_admin_area
-
     add_need "Barnkläder", "Gärna bra kvalitet. För bäbisar"
     expect_number_of_needs_to_be 1
 
     add_need "Tandborstar", "För både barn och vuxna"
-    ensure_we_are_in_admin_area
     expect_number_of_needs_to_be 2
 
     remove_need 1
-    ensure_we_are_in_admin_area
     expect_number_of_needs_to_be 1
   end
 
@@ -34,28 +30,20 @@ describe "Creating a new list" do
   end
 
   def add_need(title, description)
+    click_link "Lägg till mer i listan"
+
     fill_in "need_title", with: title
     fill_in "need_description", with: description
-    click_button "Lägg till behov"
+    click_button "Lägg till i listan"
   end
 
   def remove_need(index)
-    need_element = all("li")[index]
+    need_element = all(".needs p")[index]
     need_element.click_link("Ta bort behov")
   end
 
   def expect_number_of_needs_to_be(expected_number_of_needs)
-    needs_in_page = all("li")
+    needs_in_page = all(".needs h4")
     expect(needs_in_page.length).to eql(expected_number_of_needs)
-  end
-
-  def ensure_we_are_in_admin_area
-    expect(current_path).to eq("/insamlings/#{ @insamling.id }/admins/#{ @insamling.admin_token }")
-  end
-
-  def current_path
-    url = URI.parse(current_url)
-    query = "?#{url.query}" if url.query.present?
-    "#{url.path}#{query}"
   end
 end

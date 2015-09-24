@@ -2,8 +2,8 @@ class AdminsController < ApplicationController
   before_filter :validate_authentication_code
 
   def show
-    @insamling = insamling
-    @need = Need.new
+    session[:current_user] = insamling.user_email
+    redirect_to insamling_url(insamling)
   end
 
   private

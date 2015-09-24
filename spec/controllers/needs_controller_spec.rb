@@ -3,12 +3,12 @@ require 'rails_helper'
 describe NeedsController do
 
   describe "#create" do
-    context "with valid params" do
+    context "when user is logged in" do
       it "created a new Need on the Insamling" do
         insamling = create(:insamling)
+        simulate_user_logged_in(insamling.user_email)
         params = {
           insamling_id: insamling.id,
-          admin_token: insamling.admin_token,
           need: {
             title: "this is needed",
             description: "And a descition"
@@ -20,8 +20,9 @@ describe NeedsController do
         expect(insamling.needs.length).to eql(1)
       end
 
-      it "redirects to the admin page" do
+      it "redirects to the insamlings page" do
         insamling = create(:insamling)
+        simulate_user_logged_in(insamling.user_email)
         params = {
           insamling_id: insamling.id,
           admin_token: insamling.admin_token,
@@ -33,16 +34,15 @@ describe NeedsController do
 
         post :create, params
 
-        expect(response).to redirect_to "/insamlings/#{ insamling.id }/admins/#{ insamling.admin_token }"
+        expect(response).to redirect_to "/insamlings/#{ insamling.id }"
       end
     end
 
-    context "with invalid params" do
+    context "when user is logged out" do
       it "redirects to the insamling" do
         insamling = create(:insamling)
         params = {
           insamling_id: insamling.id,
-          admin_token: "invalid_token",
           need: {
             title: "this is needed",
             description: "And a descition"
@@ -57,9 +57,10 @@ describe NeedsController do
   end
 
   describe "#destroy" do
-    context "with valid parameters" do
+    context "when user is logged in" do
       it "deletes the need" do
         insamling = create_insamling_with_one_need
+        simulate_user_logged_in(insamling.user_email)
         params = {
           insamling_id: insamling.id,
           id: insamling.needs.first.id,
@@ -72,6 +73,7 @@ describe NeedsController do
 
       it "removes the need from the insamling" do
         insamling = create_insamling_with_one_need
+        simulate_user_logged_in(insamling.user_email)
         params = {
           insamling_id: insamling.id,
           id: insamling.needs.first.id,
@@ -82,8 +84,9 @@ describe NeedsController do
           to change { Need.count }.from(1).to(0)
       end
 
-      it "redirects to the admin page" do
+      it "redirects to the insamling page" do
         insamling = create_insamling_with_one_need
+        simulate_user_logged_in(insamling.user_email)
         params = {
           insamling_id: insamling.id,
           id: insamling.needs.first.id,
@@ -92,11 +95,11 @@ describe NeedsController do
 
         delete :destroy, params
 
-        expect(response).to redirect_to "/insamlings/#{ insamling.id }/admins/#{ insamling.admin_token }"
+        expect(response).to redirect_to "/insamlings/#{ insamling.id }"
       end
     end
 
-    context "with invalid params" do
+    context "when the user is logged out" do
       it "redirects to the insamling" do
         insamling = create_insamling_with_one_need
         params = {
@@ -117,5 +120,10 @@ describe NeedsController do
       insamling.save!
       insamling
     end
+
+  end
+
+  def simulate_user_logged_in(email)
+    session[:current_user] = email
   end
 end
