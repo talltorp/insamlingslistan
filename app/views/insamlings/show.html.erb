@@ -27,21 +27,23 @@
       <% end -%>
       <% if @insamling.needs.length > 0 %>
         <h3>Just nu behöver vi</h3>
-        <% @insamling.needs.each do |need| -%>
-          <h4>
-            <%= need.title %>
-          </h4>
-          <p>
-            <%= need.description %>
-            <%= link_to "Ta bort behov",
-              insamling_need_path(
-                @insamling,
-                need
-              ),
-              data: { confirm: "Är du säker att du vill ta bort '#{ need.title }'?" },
-              :method => :delete %>
-          </p>
-        <% end -%>
+        <ul>
+          <% @insamling.needs.each do |need| -%>
+            <li>
+              <h4>
+                <%= need.title %>
+              </h4>
+              <p>
+                <%= need.description %>
+                <%= link_to insamling_need_path(@insamling, need),
+                  data: { confirm: "Är du säker att du vill ta bort '#{ need.title }'?" },
+                  :method => :delete do %>
+                    <%= fa_icon "trash", text: "Ta bort" %>
+                <% end %>
+              </p>
+            </li>
+          <% end -%>
+        </ul>
       <% else %>
         <h3>Just nu behöver vi inget</h3>
       <% end -%>

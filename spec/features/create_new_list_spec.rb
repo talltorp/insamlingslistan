@@ -38,12 +38,12 @@ feature "Creating a new list" do
   end
 
   def remove_need(index)
-    need_element = all(".needs p")[index]
-    need_element.click_link("Ta bort behov")
+    need_element = all(".needs li")[index]
+    need_element.click_link("Ta bort")
   end
 
   def expect_number_of_needs_to_be(expected_number_of_needs)
-    needs_in_page = all(".needs h4")
+    needs_in_page = all(".needs li")
     expect(needs_in_page.length).to eql(expected_number_of_needs)
   end
 end

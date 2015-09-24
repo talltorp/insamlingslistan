@@ -70,5 +70,15 @@ article {
       @include span-columns(4);
       @include shift(0);
     }
+
+    li {
+      position: relative;
+
+      a {
+        position: absolute;
+        right: 0px;
+        color: $red;
+      }
+    }
   }
 }
