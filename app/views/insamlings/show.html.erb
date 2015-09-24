@@ -35,10 +35,12 @@
               </h4>
               <p>
                 <%= need.description %>
-                <%= link_to insamling_need_path(@insamling, need),
-                  data: { confirm: "Är du säker att du vill ta bort '#{ need.title }'?" },
-                  :method => :delete do %>
-                    <%= fa_icon "trash", text: "Ta bort" %>
+                <% if @current_user %>
+                  <%= link_to insamling_need_path(@insamling, need),
+                    data: { confirm: "Är du säker att du vill ta bort '#{ need.title }'?" },
+                    :method => :delete do %>
+                      <%= fa_icon "trash", text: "Ta bort" %>
+                  <% end %>
                 <% end %>
               </p>
             </li>
