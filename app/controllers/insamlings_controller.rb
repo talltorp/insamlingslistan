@@ -28,6 +28,6 @@ class InsamlingsController < ApplicationController
   end
 
   def insamlings_params
-    params.require(:insamling).permit(:about, :description, :user_email)
+    params.require(:insamling).permit(:about, :description, :user_email, :location)
   end
 end

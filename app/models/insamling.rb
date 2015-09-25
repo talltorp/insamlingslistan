@@ -2,6 +2,8 @@ class Insamling < ActiveRecord::Base
   has_many :needs
 
   before_create :generate_admin_token
+  geocoded_by :location
+  after_validation :geocode
 
   private
 

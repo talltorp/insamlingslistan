@@ -1,12 +1,17 @@
 require "rails_helper"
 
 feature "Creating a new list" do
+  before(:all) do 
+    stub_geocoding
+  end
+
   scenario "and simulate the entire application flow" do
     visit "/"
     click_link "Skapa en lista"
 
     fill_in "insamling_about", with: "Kids in need"
     fill_in "insamling_description", with: "They need blankets and food"
+    fill_in_location with: "storgatan 1 12222 stockholm"
     fill_in "insamling_user_email", with: "good@person.com"
     click_button "Skapa lista"
 
@@ -29,6 +34,11 @@ feature "Creating a new list" do
     visit "/insamlings/#{ @insamling.id }/admins/#{ @insamling.admin_token }"
   end
 
+  def fill_in_location(options = {})
+    fill_value = options.fetch(:with)
+    first("#insamling_location", visible: false).set(fill_value)
+  end
+
   def add_need(title, description)
     click_link "Lägg till mer i listan"
 
@@ -45,5 +55,20 @@ feature "Creating a new list" do
   def expect_number_of_needs_to_be(expected_number_of_needs)
     needs_in_page = all(".needs li")
     expect(needs_in_page.length).to eql(expected_number_of_needs)
+  end
+
+  def stub_geocoding
+    Geocoder.configure(:lookup => :test)
+
+    Geocoder::Lookup::Test.set_default_stub([
+      {
+        'latitude'     => 40.7143528,
+        'longitude'    => -74.0059731,
+        'address'      => 'gatan 1',
+        'country'      => 'stan',
+        'country_code' => 'SE'
+      }
+     ]
+    )
   end
 end
