@@ -10,12 +10,14 @@ class InsamlingsController < ApplicationController
   end
 
   def create
-    insamling = Insamling.new(insamlings_params)
+    @insamling = Insamling.new(insamlings_params)
 
-    if insamling.save
-      InsamlingMailer.send_confirmation_email(insamling).deliver_now
+    if @insamling.save
+      InsamlingMailer.send_confirmation_email(@insamling).deliver_now
       flash[:notice] = "Insamlingen skapades. Kolla din mail för inloggningsuppgifter"
-      redirect_to insamling_url(insamling)
+      redirect_to insamling_url(@insamling)
+    else
+      render :new
     end
   end
 
