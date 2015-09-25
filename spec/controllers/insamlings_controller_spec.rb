@@ -120,6 +120,21 @@ describe InsamlingsController do
       expect(mail.from.first).to eql("info@insamlingslistan.se")
       expect(mail.to.first).to eql("good@person.com")
     end
+
+    context "with invalid parameters" do
+      it "renders the 'new' template" do
+        params = {
+          insamling: {
+            user_email: "bademail",
+          }
+        }
+
+        post :create, params
+
+        expect(response).to render_template(:new)
+        expect(assigns(:insamling)).to be_a(Insamling)
+      end
+    end
   end
 
   def stub_geocoding

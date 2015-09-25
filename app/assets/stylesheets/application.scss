@@ -18,6 +18,10 @@
   background-color: $medium-gray;
 }
 
+.field_with_errors .error {
+  color: $red;
+ }
+
 .share-area {
   @include flash($success-color);
   border-radius: 3px;

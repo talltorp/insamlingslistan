@@ -30,6 +30,15 @@ feature "Creating a new list" do
     expect_number_of_needs_to_be 1
   end
 
+  scenario "without required data shows validation errors" do
+    visit "/"
+    click_link "Skapa en lista"
+
+    click_button "Skapa lista"
+
+    expect(number_of_errors).to be 2
+  end
+
   def user_clicks_admin_link_in_email
     visit "/insamlings/#{ @insamling.id }/admins/#{ @insamling.admin_token }"
   end
@@ -50,6 +59,10 @@ feature "Creating a new list" do
   def remove_need(index)
     need_element = all(".needs li")[index]
     need_element.click_link("Ta bort")
+  end
+
+  def number_of_errors
+    all(".field_with_errors .error").length
   end
 
   def expect_number_of_needs_to_be(expected_number_of_needs)

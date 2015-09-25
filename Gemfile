@@ -11,6 +11,7 @@ gem "font-awesome-rails"
 gem "flutie"
 gem "high_voltage"
 gem "geocoder"
+gem 'rails-i18n', '~> 4.0.0'
 gem "i18n-tasks"
 gem "jquery-rails"
 gem "neat", "~> 1.7.0"
