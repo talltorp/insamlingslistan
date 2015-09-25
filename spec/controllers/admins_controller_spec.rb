@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe AdminsController do
   describe "#show" do
+    before(:all) do 
+      stub_geocoding
+    end
+
     context "with a valid authentication token" do
       it "logs the user in" do
         insamling = create(:insamling)
@@ -31,5 +35,20 @@ describe AdminsController do
         expect(response).to redirect_to("/insamlings/#{ insamling.id }")
       end
     end
+  end
+
+  def stub_geocoding
+    Geocoder.configure(:lookup => :test)
+
+    Geocoder::Lookup::Test.set_default_stub([
+      {
+        'latitude'     => 40.7143528,
+        'longitude'    => -74.0059731,
+        'address'      => 'gatan 1',
+        'country'      => 'stan',
+        'country_code' => 'SE'
+      }
+     ]
+    )
   end
 end

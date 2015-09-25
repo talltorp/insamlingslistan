@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe InsamlingsController do
+  before(:all) do 
+    stub_geocoding
+  end
+
   describe "#show" do
     it "renders the :show template" do
       insamling = create(:insamling)
@@ -45,12 +49,14 @@ describe InsamlingsController do
   end
 
   describe "#create" do
+
     it "creates a new Insamling" do
       params = {
         insamling: {
           about: "about insamling",
           description: "description insamling",
           user_email: "good@person.com",
+          location: "gatan 1 12345 stan",
         }
       }
 
@@ -58,6 +64,11 @@ describe InsamlingsController do
       insamling = Insamling.last
 
       expect(insamling.admin_token).to be_a String
+      expect(insamling.about).to be_a String
+      expect(insamling.description).to be_a String
+      expect(insamling.location).to be_a String
+      expect(insamling.latitude).to be_a Float
+      expect(insamling.longitude).to be_a Float
     end
 
     it "redirects to the :show action" do
@@ -66,6 +77,7 @@ describe InsamlingsController do
           about: "about insamling",
           description: "description insamling",
           user_email: "good@person.com",
+          location: "gatan 1 12345 stan",
         }
       }
 
@@ -81,6 +93,7 @@ describe InsamlingsController do
           about: "about insamling",
           description: "description insamling",
           user_email: "good@person.com",
+          location: "gatan 1 12345 stan",
         }
       }
 
@@ -97,6 +110,7 @@ describe InsamlingsController do
           about: "about insamling",
           description: "description insamling",
           user_email: "good@person.com",
+          location: "gatan 1 12345 stan",
         }
       }
 
@@ -106,5 +120,20 @@ describe InsamlingsController do
       expect(mail.from.first).to eql("info@insamlingslistan.se")
       expect(mail.to.first).to eql("good@person.com")
     end
+  end
+
+  def stub_geocoding
+    Geocoder.configure(:lookup => :test)
+
+    Geocoder::Lookup::Test.set_default_stub([
+      {
+        'latitude'     => 40.7143528,
+        'longitude'    => -74.0059731,
+        'address'      => 'gatan 1',
+        'country'      => 'stan',
+        'country_code' => 'SE'
+      }
+     ]
+    )
   end
 end

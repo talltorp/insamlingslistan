@@ -6,8 +6,53 @@
     <%= simple_form_for @insamling, url: {action: "create"} do |f| %>
       <%= f.input :about, label: "Vad är syftet med din insamling?" %>
       <%= f.input :description, as: :text, label: "Övrig information. Tex var insamlingen sker och hur man kontaktar dig." %>
+      <input
+        id="autocomplete" 
+        placeholder="Enter your address"
+        type="text"/>
+      <%= f.hidden_field :location %>
       <%= f.input :user_email, label: "Din email-adress" %>
       <%= f.submit "Skapa lista" %>
     <% end %>
   </article>
 </div>
+
+<script>
+var autocomplete,
+  locationBeingChanged = false;
+
+function initAutocomplete() {
+  var autocompleteInput = document.getElementById('autocomplete');
+
+  autocomplete = new google.maps.places.Autocomplete(autocompleteInput);
+  autocomplete.addListener('place_changed', fillInAddress);
+
+  preventFormFromSubmittingWhenSelectingLocation(autocompleteInput);
+}
+
+function fillInAddress() {
+  var place = autocomplete.getPlace();
+
+  $("#insamling_location").val(place.formatted_address);
+}
+
+function preventFormFromSubmittingWhenSelectingLocation(autocompleteElement) {
+  google.maps.event.addDomListener(autocompleteElement, 'keydown', function (e) {
+    // Pressed enter
+    if (e.keyCode === 13) {
+        if (locationBeingChanged) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    } else {
+        // means the user is probably typing
+        locationBeingChanged = true;
+    }
+  });
+}
+</script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQS3IQYR0AK7pCIhpSJzGC3VO8BcAEnws&signed_in=true&libraries=places&callback=initAutocomplete"
+  async defer
+  ></script>
