@@ -66,9 +66,27 @@ article {
     text-align: center;
   }
 
-  .insamling-when {
-    @include pad();
-    text-align: center;
+  .insamling-when-where {
+    @include span-columns(5 of 7);
+    @include shift(1);
+
+    @include media($small-screen-up) {
+      @include span-columns(4);
+      @include shift(0);
+    }
+
+    .when {
+      @include span-columns(3 of 5);
+      @include pad();
+      text-align: center;
+    }
+
+    .where {
+      @include span-columns(2 of 5);
+      @include pad();
+      @include omega();
+      text-align: center;
+    }
   }
 
   .needs {
