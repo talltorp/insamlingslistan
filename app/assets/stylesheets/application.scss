@@ -66,6 +66,11 @@ article {
     text-align: center;
   }
 
+  .insamling-when {
+    @include pad();
+    text-align: center;
+  }
+
   .needs {
     @include span-columns(5 of 7);
     @include shift(1);
