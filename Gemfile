@@ -20,6 +20,7 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "rack-canonical-host"
 gem "rails", "4.2.1"
+gem 'rails_12factor', group: :production
 gem "recipient_interceptor"
 gem "refills"
 gem "sass-rails", "~> 5.0"
