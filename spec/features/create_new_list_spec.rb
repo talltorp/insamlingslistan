@@ -11,6 +11,7 @@ feature "Creating a new list" do
 
     fill_in "insamling_about", with: "Kids in need"
     fill_in "insamling_description", with: "They need blankets and food"
+    fill_in "insamling_when", with: "Varje lördag klockan fem"
     fill_in_location with: "storgatan 1 12222 stockholm"
     fill_in "insamling_user_email", with: "good@person.com"
     click_button "Skapa lista"

@@ -5,7 +5,8 @@
     </h1>
     <%= simple_form_for @insamling, url: {action: "create"} do |f| %>
       <%= f.input :about, label: "Vad är syftet med din insamling?" %>
-      <%= f.input :description, as: :text, label: "Övrig information. Tex var insamlingen sker och hur man kontaktar dig." %>
+      <%= f.input :description, as: :text, label: "Övrig information" %>
+      <%= f.input :when, label: "Vilka tider tar ni emot saker?" %>
       <input
         id="autocomplete" 
         placeholder="Enter your address"
